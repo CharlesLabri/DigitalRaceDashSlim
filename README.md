@@ -88,11 +88,11 @@ Digital Race Dash designed for use on Raspberry Pi in a Honda S2000
 
 
 #### Install pip dependencies:
-- `sudo python3 -m pip install --upgrade pip setuptools`
-- `sudo python3 -m pip install --upgrade Cython==0.29.19 pillow`
+- `python3 -m pip install --upgrade pip setuptools`
+- `python3 -m pip install --upgrade Cython==0.29.19 pillow`
 
 #### Install Kivy:
-- `sudo python3 -m pip install https://github.com/kivy/kivy/archive/master.zip`
+- `python3 -m pip install https://github.com/kivy/kivy/archive/master.zip`
 
 #### Copy code and data folders to /home/pi/DRDS
 - "data" folder
@@ -127,7 +127,7 @@ In raspi-config -> Advanced Options -> Memory Split
 
 #### Install Python OBD:
 https://python-obd.readthedocs.io/en/latest/#installation
-- `sudo pip3 install obd`
+- `python3 -m pip install obd`
 
 #### Install RPi.GPIO, Lite does not come with it..
 - `sudo apt-get install python3-rpi.gpio`

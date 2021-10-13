@@ -251,7 +251,7 @@ class OBD:
             OBD.enable.Voltage = 0
             OBD.enable.Gear = 0
 
-    class warning:  # used to show warning when value is met, these will be read from savefile
+    class warning:  # used to show warning when value is met, these will be read from savedata.txt
         RPM = 0
         Speed = 0
         CoolantTemp = 0
@@ -329,13 +329,15 @@ class OBD:
             Load = round(Load_max / 32.0, 2)
             TimingAdv = round(TimingAdv_max / 32.0, 2)
 
+#-----------------------------------------------BEGIN MAIN FUNCTION----------------------------
     # Thread functions - to be called later
     # These will run in the background and will not block the GUI
     def OBD_setup_thread(self):
         global OBDEnabled
         try:
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:16:3E:ED')  # HART Blue Adapter
-            os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:03:43:DF')  # S2K Blue Adapter
+            # os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:03:43:DF')  # S2K Blue Adapter
+            os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:0B:A7:46') # Vanagon ELM327 BT adapter
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:17:E9:60:7C:BC')  # Hondata
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:04:3E:4B:07:66')  # Green LXLink
             print("RF Bind Complete")
@@ -348,20 +350,26 @@ class OBD:
             OBD.cmd_Speed = obd.commands.SPEED
             OBD.cmd_CoolantTemp = obd.commands.COOLANT_TEMP
             OBD.cmd_IntakeTemp = obd.commands.INTAKE_TEMP
+            OBD.cmd_IntakeTemp = obd.commands.AMBIANT_AIR_TEMP # not in use
             OBD.cmd_IntakePressure = obd.commands.INTAKE_PRESSURE
             OBD.cmd_Load = obd.commands.ENGINE_LOAD
-            OBD.cmd_ThrottlePos = obd.commands.THROTTLE_POS
+            OBD.cmd_ThrottlePos = obd.commands.THROTTLE_POS # not for ea288
             OBD.cmd_LTFT = obd.commands.LONG_FUEL_TRIM_1
             OBD.cmd_STFT = obd.commands.SHORT_FUEL_TRIM_1
-            OBD.cmd_TimingAdv = obd.commands.TIMING_ADVANCE
+            OBD.cmd_TimingAdv = obd.commands.TIMING_ADVANCE # not for ea288
             OBD.cmd_MAF = obd.commands.MAF
             OBD.cmd_RunTime = obd.commands.RUN_TIME
-            OBD.cmd_FuelLevel = obd.commands.FUEL_LEVEL
+            OBD.cmd_FuelLevel = obd.commands.FUEL_LEVEL # not for ea288
             OBD.cmd_WarmUpsSinceDTC = obd.commands.WARMUPS_SINCE_DTC_CLEAR
             OBD.cmd_DistanceSinceDTC = obd.commands.DISTANCE_SINCE_DTC_CLEAR
             OBD.cmd_Voltage = obd.commands.ELM_VOLTAGE
+            OBD.cmd_EcuVoltage = obd.commands.CONTROL_MODULE_VOLTAGE # not in use
             OBD.cmd_ReadDTC = obd.commands.GET_DTC
             OBD.cmd_ClearDTC = obd.commands.CLEAR_DTC
+            OBD.cmd_Boost = obd.commands.MONITOR_BOOST_PRESSURE_B1 # not in use
+            OBD.cmd_Boost = obd.commands.MONITOR_BOOST_PRESSURE_B2 # not in use
+            # need EGT temps
+            # need CACT temps
             OBD.Connected = 1
             print("OBD System is Ready, Starting Update Thread")
         except:

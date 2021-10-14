@@ -337,7 +337,7 @@ class OBD:
         try:
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:16:3E:ED')  # HART Blue Adapter
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:03:43:DF')  # S2K Blue Adapter
-            os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:0B:A7:46') # Vanagon ELM327 BT adapter
+            os.system('sudo rfcomm bind /dev/rfcomm0 00:1D:A5:0B:A7:46') # Vanagon ELM327 BT adapter
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:17:E9:60:7C:BC')  # Hondata
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:04:3E:4B:07:66')  # Green LXLink
             print("RF Bind Complete")

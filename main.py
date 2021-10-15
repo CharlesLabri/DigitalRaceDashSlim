@@ -36,10 +36,10 @@ autobrightness = 0          # AutoBrightness on Boot #set to 1 if you have the n
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # For PC dev work
 from kivy.config import Config
-Config.set('graphics', 'width', '1024')
-Config.set('graphics', 'height', '600')
+Config.set('graphics', 'width', '800')
+Config.set('graphics', 'height', '480')
 from kivy.core.window import Window
-Window.size = (1024, 600)
+Window.size = (800, 480)
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Inital Setup functions

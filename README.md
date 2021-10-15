@@ -31,9 +31,9 @@ Digital Race Dash designed for use on Raspberry Pi in a Honda S2000
 
 `sudo apt-get update`
 
-`sudo apt-get install libfreetype6-dev libgl1-mesa-dev libgles2-mesa-dev libdrm-dev libgbm-dev libudev-dev libasound2-dev liblzma-dev libjpeg-dev libtiff-dev libwebp-dev git build-essential`
+`sudo apt-get install -y libfreetype6-dev libgl1-mesa-dev libgles2-mesa-dev libdrm-dev libgbm-dev libudev-dev libasound2-dev liblzma-dev libjpeg-dev libtiff-dev libwebp-dev git build-essential`
 
-`sudo apt-get install gir1.2-ibus-1.0 libdbus-1-dev libegl1-mesa-dev libibus-1.0-5 libibus-1.0-dev libice-dev libsm-dev libsndio-dev libwayland-bin libwayland-dev libxi-dev libxinerama-dev libxkbcommon-dev libxrandr-dev libxss-dev libxt-dev libxv-dev x11proto-randr-dev x11proto-scrnsaver-dev x11proto-video-dev x11proto-xinerama-dev`
+`sudo apt-get install -y gir1.2-ibus-1.0 libdbus-1-dev libegl1-mesa-dev libibus-1.0-5 libibus-1.0-dev libice-dev libsm-dev libsndio-dev libwayland-bin libwayland-dev libxi-dev libxinerama-dev libxkbcommon-dev libxrandr-dev libxss-dev libxt-dev libxv-dev x11proto-randr-dev x11proto-scrnsaver-dev x11proto-video-dev x11proto-xinerama-dev`
 
 #### Install SDL2:
 - `wget https://libsdl.org/release/SDL2-2.0.10.tar.gz`
@@ -77,22 +77,14 @@ Digital Race Dash designed for use on Raspberry Pi in a Honda S2000
 #### Install the dependencies:
 - `sudo apt update`
 - `sudo apt upgrade`
-- `sudo apt install pkg-config libgl1-mesa-dev libgles2-mesa-dev \
-   python3-setuptools libgstreamer1.0-dev git-core \
-   gstreamer1.0-plugins-{bad,base,good,ugly} \
-   gstreamer1.0-{omx,alsa} python3-dev libmtdev-dev \
-   xclip xsel libjpeg-dev`
-
-#### Install pip3:
-- `sudo apt install python3-pip`
-
+- `sudo apt install  -y pkg-config libgl1-mesa-dev libgles2-mesa-dev python3-setuptools libgstreamer1.0-dev git-core gstreamer1.0-plugins-{bad,base,good,ugly} gstreamer1.0-{omx,alsa} python3-dev libmtdev-dev xclip xsel libjpeg-dev python3-pip`
 
 #### Install pip dependencies:
 - `python3 -m pip install --upgrade pip setuptools`
 - `python3 -m pip install --upgrade Cython==0.29.19 pillow`
 
 #### Install Kivy:
-- `python3 -m pip install https://github.com/kivy/kivy/archive/master.zip`
+- `python3 -m pip install kivy[full]`
 
 #### Copy code and data folders to /home/pi/DRDS
 - "data" folder

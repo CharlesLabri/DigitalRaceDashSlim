@@ -324,6 +324,10 @@ class OBD:
         IntakeTemp = 0
         LTFT = 0
         STFT = 0
+        EGT1 = 0
+        EGT2 = 0
+        CACT1 = 0
+        TurboBoost = 0
 
     class DTC:
         quantity = -1
@@ -375,6 +379,7 @@ class OBD:
             EGT1 = "data/gauges/normal/S2K_0.png"
             EGT2 = "data/gauges/normal/S2K_0.png"
             CACT1Temp = "data/gauges/normal/S2K_0.png"
+            TurboBoost = "data/gauges/normal/S2K_0.png"
 
         class persegment:
             # Max values for each S2K Bar Gauge
@@ -818,7 +823,7 @@ class MainApp(App):
     EGT1Warn = NumericProperty(0)
     EGT2Warn = NumericProperty(0)
     CACT1Warn = NumericProperty(0)
-    TuboBoostTempWarn = NumericProperty(0)
+    TuboBoostWarn = NumericProperty(0)
 
     CoolantTemp_Image = StringProperty()
     IntakeTemp_Image = StringProperty()

@@ -56,15 +56,39 @@ AnchorLayout:
                     height: 250
                     width: 250
 
+                # Image:
+                #     source: "data/gauges/S2K_Intake.png"
+                #     opacity: 1
+                #     pos: 275, 350
+                #     size_hint: None, None
+                #     height: 150
+                #     width: 250
+                # Image:
+                #     source: str(app.IntakeTemp_Image)
+                #     opacity: 1
+                #     pos: 275, 350
+                #     size_hint: None, None
+                #     height: 150
+                #     width: 250
+                #     nocache: True
+                
                 Image:
-                    source: "data/gauges/S2K_Intake.png"
+                    source: "data/gauges/warning/WarningRed.png"
+                    opacity: 1 if app.EGT1 > app.EGT1Warn else 0
+                    pos: 0, 250
+                    size_hint: None, None
+                    height: 250
+                    width: 250
+
+                Image:
+                    source: "data/gauges/ea288_EGT1.png"
                     opacity: 1
                     pos: 275, 350
                     size_hint: None, None
                     height: 150
                     width: 250
                 Image:
-                    source: str(app.IntakeTemp_Image)
+                    source: str(app.EGT1_Image)
                     opacity: 1
                     pos: 275, 350
                     size_hint: None, None
@@ -72,6 +96,13 @@ AnchorLayout:
                     width: 250
                     nocache: True
 
+                Image:
+                    source: "data/gauges/warning/WarningRed.png"
+                    opacity: 1 if app.IntakeTemp > app.IntakeTempWarn else 0
+                    pos: 275, 250
+                    size_hint: None, None
+                    height: 250
+                    width: 250
                 Image:
                     source: "data/gauges/S2K_Battery.png"
                     opacity: 1

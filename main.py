@@ -144,6 +144,10 @@ class sys:
         OBD.warning.IntakeTemp = int(f.readline())
         OBD.warning.LTFT = int(f.readline())
         OBD.warning.STFT = int(f.readline())
+        OBD.warning.EGT1 = int(f.readline())
+        OBD.warning.EGT2 = int(f.readline())
+        OBD.warning.CACT1 = int(f.readline())
+        OBD.warning.TurboBoost = int(f.readline())
         sys.TempUnit = f.readline().rstrip()
         sys.SpeedUnit = f.readline().rstrip()
         f.close()
@@ -163,6 +167,14 @@ class sys:
             + str(OBD.warning.LTFT)
             + "\n"
             + str(OBD.warning.STFT)
+            + "\n"
+            + str(OBD.warning.EGT1)
+            + "\n"
+            + str(OBD.warning.EGT2)
+            + "\n"
+            + str(OBD.warning.CACT1)
+            + "\n"
+            + str(OBD.warning.TurboBoost)
             + "\n"
             + sys.TempUnit
             + "\n"
@@ -845,10 +857,10 @@ class MainApp(App):
         self.IntakeTempWarn = OBD.warning.IntakeTemp
         self.LTFTWarn = OBD.warning.LTFT
         self.STFTWarn = OBD.warning.STFT
-        # self.EGT1Warn = OBD.warning.EGT1 # not enabled warnings yet
-        # self.EGT2Warn = OBD.warning.EGT2
-        # self.CACT1Warn = OBD.warning.CACT1
-        # TurboBoostWarn = OBD.warning.TurboBoost
+        self.EGT1Warn = OBD.warning.EGT1
+        self.EGT2Warn = OBD.warning.EGT2
+        self.CACT1Warn = OBD.warning.CACT1
+        TurboBoostWarn = OBD.warning.TurboBoost
         if sys.getsysteminfo == True:
             self.get_CPU_info()
             self.get_IP()
@@ -1221,17 +1233,17 @@ class MainApp(App):
     def SpeedWarnSlider(self, instance, value):
         OBD.warning.Speed = int(math.floor(value))
 
-    # def EGT1WarnSlider(self, instance, value):
-    #     OBD.warning.EGT1 = int(math.floor(value))
+    def EGT1WarnSlider(self, instance, value):
+        OBD.warning.EGT1 = int(math.floor(value))
 
-    # def EGT2WarnSlider(self, instance, value):
-    #     OBD.warning.EGT2 = int(math.floor(value))
+    def EGT2WarnSlider(self, instance, value):
+        OBD.warning.EGT2 = int(math.floor(value))
 
-    # def CACT1WarnSlider(self, instance, value):
-    #     OBD.warning.CACT1 = int(math.floor(value))
+    def CACT1WarnSlider(self, instance, value):
+        OBD.warning.CACT1 = int(math.floor(value))
 
-    # def TurboBoostWarnSlider(self, instance, value):
-    #     OBD.warning.TurboBoost = int(math.floor(value))
+    def TurboBoostWarnSlider(self, instance, value):
+        OBD.warning.TurboBoost = int(math.floor(value))
 
     def ReadDTC(self):
         if OBDEnabled and OBD.Connected:

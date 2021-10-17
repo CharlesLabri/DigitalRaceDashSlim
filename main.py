@@ -244,6 +244,7 @@ class OBD:
     EGT1 = 0
     EGT2 = 0
     CACT1 = 0
+    TurboBoost = 0
 
     class dev:  # used for development of GUI and testing
         Speed = 0
@@ -279,6 +280,7 @@ class OBD:
         EGT1 = 1
         EGT2 = 0
         CACT1 = 1
+        TurboBoost = 0
 
         def disableAll(obj):
             OBD.enable.RPM = 0
@@ -301,6 +303,7 @@ class OBD:
             OBD.enable.EGT1 = 0
             OBD.enable.EGT2 = 0
             OBD.enable.CACT1 = 0
+            OBD.enable.TurboBoost = 0
 
     class warning:  # used to show warning when value is met, these will be read from savedata.txt
         RPM = 0
@@ -434,6 +437,7 @@ class OBD:
             OBD.cmd_EGT1 = obd.commands[78][120]  # EGT Bank 1
             OBD.cmd_EGT1 = obd.commands[79][121]  # EGT Bank 1
             OBD.cmd_CACT1 = obd.commands[77][119]  # CACT Sensor 1
+            OBD.cmd_TurboBoost = obd.commands[70][112]  # Turbo Boost
             OBD.Connected = 1
             print("OBD System is Ready, Starting Update Thread")
         except:
@@ -636,6 +640,15 @@ class OBD:
                         )
                 except:
                     print("Could not get OBD Response - CACT1 Temp")
+            if OBD.enable.TurboBoost:
+                try:
+                    response_TurboBoost = OBD.connection.query(OBD.cmd_TurboBoost)
+                    if str(response_TurboBoost.value.magnitude) != "None":
+                        OBD.TurboBoost = int(
+                            response_TurboBoost.value.magnitude * 0.1450377377
+                        )
+                except:
+                    print("Could not get OBD Response - Turbo Boost PSI")
 
     def start_setup_thread(self):
         OBDSetupThread = threading.Thread(
@@ -768,6 +781,7 @@ class MainApp(App):
     EGT1 = NumericProperty(0)
     EGT2 = NumericProperty(0)
     CACT1 = NumericProperty(0)
+    TurboBoost = NumericProperty(0)
 
     DTC0 = StringProperty()
     DTC1 = StringProperty()
@@ -790,6 +804,7 @@ class MainApp(App):
     EGT1TempWarn = NumericProperty(0)
     EGT2TempWarn = NumericProperty(0)
     CACT1TempWarn = NumericProperty(0)
+    TuboBoostTempWarn = NumericProperty(0)
 
     CoolantTemp_Image = StringProperty()
     IntakeTemp_Image = StringProperty()
@@ -802,6 +817,7 @@ class MainApp(App):
     EGT1Temp_Image = StringProperty()
     EGT2Temp_Image = StringProperty()
     CACT1Temp_Image = StringProperty()
+    TurboBoost_Image = StringProperty()
 
     RPMGaugeMax = OBD.gauge.persegment.RPM_max
     SpeedGaugeMax = OBD.gauge.persegment.Speed_max
@@ -813,6 +829,7 @@ class MainApp(App):
     EGT1TempGaugeMax = OBD.gauge.persegment.EGT1Temp_max
     EGT2TempGaugeMax = OBD.gauge.persegment.EGT2Temp_max
     CACT1TempGaugeMax = OBD.gauge.persegment.CACT1Temp_max
+    TurboBoostGaugeMax = OBD.gauge.persegment.TurboBoost_max
 
     def updatevariables(self, *args):
         self.version = sys.version
@@ -829,6 +846,7 @@ class MainApp(App):
         # self.EGT1TempWarn = OBD.warning.EGT1 # not enabled warnings yet
         # self.EGT2TempWarn = OBD.warning.EGT2
         # self.CACT1TempWarn = OBD.warning.CACT1
+        # TurboBoostWarn = OBD.warning.TurboBoost
         if sys.getsysteminfo == True:
             self.get_CPU_info()
             self.get_IP()
@@ -867,6 +885,7 @@ class MainApp(App):
                 self.EGT1Temp = OBD.EGT1
                 self.EGT2Temp = OBD.EGT2
                 self.CACT1Temp = OBD.CACT1
+                self.TurboBoost = OBD.TurboBoost
             except:
                 print("Python -> Kivy OBD Var Setting Failure")
 
@@ -944,7 +963,7 @@ class MainApp(App):
             self.CatTemp = OBD.dev.Generic * 20
             self.TimingAdv = OBD.dev.Generic / 2
 
-            # no dev for EGT1+2 + CACT1 implemented
+            # no dev for EGT1+2 + CACT1 + TurboBoost implemented
 
         # S2K Bar Image Selection
         if (
@@ -1048,6 +1067,15 @@ class MainApp(App):
             self.CACT1Temp_Image = str(
                 "data/gauges/normal/s2k_"
                 + (str(int(round(self.CACT1Temp / OBD.gauge.persegment.CACT1Temp))))
+                + ".png"
+            )
+        if (
+            OBD.enable.TurboBoost
+            and 0 <= int(round(self.TurboBoost / OBD.gauge.persegment.TurboBoost)) <= 32
+        ):
+            self.TurboBoost_Image = str(
+                "data/gauges/normal/s2k_"
+                + (str(int(round(self.TurboBoost / OBD.gauge.persegment.TurboBoost))))
                 + ".png"
             )
 
@@ -1171,6 +1199,7 @@ class MainApp(App):
         OBD.enable.EGT1 = 0
         OBD.enable.EGT2 = 0
         OBD.enable.CACT1 = 0
+        OBD.enable.TurboBoost = 0
 
     def CoolantTempWarnSlider(self, instance, value):
         OBD.warning.CoolantTemp = int(math.floor(value))
@@ -1198,6 +1227,9 @@ class MainApp(App):
 
     # def CACT1TempWarnSlider(self, instance, value):
     #     OBD.warning.CACT1 = int(math.floor(value))
+
+    # def TurboBoostWarnSlider(self, instance, value):
+    #     OBD.warning.TurboBoost = int(math.floor(value))
 
     def ReadDTC(self):
         if OBDEnabled and OBD.Connected:

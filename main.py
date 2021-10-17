@@ -435,7 +435,7 @@ class OBD:
             OBD.cmd_Speed = obd.commands.SPEED
             OBD.cmd_CoolantTemp = obd.commands.COOLANT_TEMP
             OBD.cmd_IntakeTemp = obd.commands.INTAKE_TEMP
-            OBD.cmd_IntakeTemp = obd.commands.AMBIANT_AIR_TEMP  # not in use
+            # OBD.cmd_IntakeTemp = obd.commands.AMBIANT_AIR_TEMP  # not in use
             OBD.cmd_IntakePressure = obd.commands.INTAKE_PRESSURE
             OBD.cmd_Load = obd.commands.ENGINE_LOAD
             OBD.cmd_ThrottlePos = obd.commands.THROTTLE_POS  # not for ea288

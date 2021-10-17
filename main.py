@@ -379,6 +379,7 @@ class OBD:
             EGT1Temp_max = 2000
             EGT2Temp_max = 2000
             CACT1Temp_max = 300
+            TurboBoost_max = 30
 
             # Find value per segment rounded to 2 decimal places
             CoolantTemp = round(CoolantTemp_max / 32.0, 2)
@@ -392,6 +393,7 @@ class OBD:
             EGT1Temp = round(EGT1Temp_max / 32.0, 2)
             EGT2Temp = round(EGT2Temp_max / 32.0, 2)
             CACT1Temp = round(CACT1Temp_max / 32.0, 2)
+            TurboBoost = round(TurboBoost_max / 32.0, 2)
 
     # -----------------------------------------------BEGIN MAIN FUNCTION----------------------------
     # Thread functions - to be called later
@@ -829,7 +831,7 @@ class MainApp(App):
     EGT1TempGaugeMax = OBD.gauge.persegment.EGT1Temp_max
     EGT2TempGaugeMax = OBD.gauge.persegment.EGT2Temp_max
     CACT1TempGaugeMax = OBD.gauge.persegment.CACT1Temp_max
-    TurboBoostGaugeMax = OBD.gauge.persegment.TurboBoost_max
+    # TurboBoostGaugeMax = OBD.gauge.persegment.TurboBoost_max
 
     def updatevariables(self, *args):
         self.version = sys.version

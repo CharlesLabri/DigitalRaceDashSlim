@@ -360,8 +360,8 @@ class OBD:
             ThrottlePos = "data/gauges/normal/S2K_0.png"
             Load = "data/gauges/normal/S2K_0.png"
             TimingAdv = "data/gauges/normal/S2K_0.png"
-            EGT1Temp = "data/gauges/normal/S2K_0.png"
-            EGT2Temp = "data/gauges/normal/S2K_0.png"
+            EGT1 = "data/gauges/normal/S2K_0.png"
+            EGT2 = "data/gauges/normal/S2K_0.png"
             CACT1Temp = "data/gauges/normal/S2K_0.png"
 
         class persegment:
@@ -376,9 +376,9 @@ class OBD:
             TimingAdv_max = 50
             RPM_max = 9500
             Speed_max = 150
-            EGT1Temp_max = 2000
-            EGT2Temp_max = 2000
-            CACT1Temp_max = 300
+            EGT1_max = 2000
+            EGT2_max = 2000
+            CACT1_max = 300
             TurboBoost_max = 30
 
             # Find value per segment rounded to 2 decimal places
@@ -390,9 +390,9 @@ class OBD:
             ThrottlePos = round(ThrottlePos_max / 32.0, 2)
             Load = round(Load_max / 32.0, 2)
             TimingAdv = round(TimingAdv_max / 32.0, 2)
-            EGT1Temp = round(EGT1Temp_max / 32.0, 2)
-            EGT2Temp = round(EGT2Temp_max / 32.0, 2)
-            CACT1Temp = round(CACT1Temp_max / 32.0, 2)
+            EGT1 = round(EGT1_max / 32.0, 2)
+            EGT2 = round(EGT2_max / 32.0, 2)
+            CACT1 = round(CACT1_max / 32.0, 2)
             TurboBoost = round(TurboBoost_max / 32.0, 2)
 
     # -----------------------------------------------BEGIN MAIN FUNCTION----------------------------
@@ -803,9 +803,9 @@ class MainApp(App):
     IntakeTempWarn = NumericProperty(0)
     LTFTWarn = NumericProperty(0)
     STFTWarn = NumericProperty(0)
-    EGT1TempWarn = NumericProperty(0)
-    EGT2TempWarn = NumericProperty(0)
-    CACT1TempWarn = NumericProperty(0)
+    EGT1Warn = NumericProperty(0)
+    EGT2Warn = NumericProperty(0)
+    CACT1Warn = NumericProperty(0)
     TuboBoostTempWarn = NumericProperty(0)
 
     CoolantTemp_Image = StringProperty()
@@ -816,9 +816,9 @@ class MainApp(App):
     ThrottlePos_Image = StringProperty()
     Load_Image = StringProperty()
     TimingAdv_Image = StringProperty()
-    EGT1Temp_Image = StringProperty()
-    EGT2Temp_Image = StringProperty()
-    CACT1Temp_Image = StringProperty()
+    EGT1_Image = StringProperty()
+    EGT2_Image = StringProperty()
+    CACT1_Image = StringProperty()
     TurboBoost_Image = StringProperty()
 
     RPMGaugeMax = OBD.gauge.persegment.RPM_max
@@ -828,9 +828,9 @@ class MainApp(App):
     VoltageGaugeMax = OBD.gauge.persegment.Voltage_max
     STFTGaugeMax = OBD.gauge.persegment.STFT_max / 2
     LTFTGaugeMax = OBD.gauge.persegment.LTFT_max / 2
-    EGT1TempGaugeMax = OBD.gauge.persegment.EGT1Temp_max
-    EGT2TempGaugeMax = OBD.gauge.persegment.EGT2Temp_max
-    CACT1TempGaugeMax = OBD.gauge.persegment.CACT1Temp_max
+    EGT1GaugeMax = OBD.gauge.persegment.EGT1_max
+    EGT2GaugeMax = OBD.gauge.persegment.EGT2_max
+    CACT1GaugeMax = OBD.gauge.persegment.CACT1_max
     # TurboBoostGaugeMax = OBD.gauge.persegment.TurboBoost_max
 
     def updatevariables(self, *args):
@@ -845,9 +845,9 @@ class MainApp(App):
         self.IntakeTempWarn = OBD.warning.IntakeTemp
         self.LTFTWarn = OBD.warning.LTFT
         self.STFTWarn = OBD.warning.STFT
-        # self.EGT1TempWarn = OBD.warning.EGT1 # not enabled warnings yet
-        # self.EGT2TempWarn = OBD.warning.EGT2
-        # self.CACT1TempWarn = OBD.warning.CACT1
+        # self.EGT1Warn = OBD.warning.EGT1 # not enabled warnings yet
+        # self.EGT2Warn = OBD.warning.EGT2
+        # self.CACT1Warn = OBD.warning.CACT1
         # TurboBoostWarn = OBD.warning.TurboBoost
         if sys.getsysteminfo == True:
             self.get_CPU_info()
@@ -884,9 +884,9 @@ class MainApp(App):
                 self.DistanceSinceDTC = OBD.DistanceSinceDTC
                 self.CatTemp = OBD.CatTemp
                 self.Voltage = OBD.Voltage
-                self.EGT1Temp = OBD.EGT1
-                self.EGT2Temp = OBD.EGT2
-                self.CACT1Temp = OBD.CACT1
+                self.EGT1 = OBD.EGT1
+                self.EGT2 = OBD.EGT2
+                self.CACT1 = OBD.CACT1
                 self.TurboBoost = OBD.TurboBoost
             except:
                 print("Python -> Kivy OBD Var Setting Failure")
@@ -1046,29 +1046,29 @@ class MainApp(App):
             )
         if (
             OBD.enable.EGT1
-            and 0 <= int(round(self.EGT1Temp / OBD.gauge.persegment.EGT1Temp)) <= 32
+            and 0 <= int(round(self.EGT1 / OBD.gauge.persegment.EGT1)) <= 32
         ):
-            self.EGT1Temp_Image = str(
+            self.EGT1_Image = str(
                 "data/gauges/normal/s2k_"
-                + (str(int(round(self.EGT1Temp / OBD.gauge.persegment.EGT1Temp))))
+                + (str(int(round(self.EGT1 / OBD.gauge.persegment.EGT1))))
                 + ".png"
             )
         if (
             OBD.enable.EGT2
-            and 0 <= int(round(self.EGT2Temp / OBD.gauge.persegment.EGT2Temp)) <= 32
+            and 0 <= int(round(self.EGT2 / OBD.gauge.persegment.EGT2)) <= 32
         ):
             self.EGT2Temp_Image = str(
                 "data/gauges/normal/s2k_"
-                + (str(int(round(self.EGT2Temp / OBD.gauge.persegment.EGT2Temp))))
+                + (str(int(round(self.EGT2 / OBD.gauge.persegment.EGT2))))
                 + ".png"
             )
         if (
             OBD.enable.CACT1
-            and 0 <= int(round(self.CACT1Temp / OBD.gauge.persegment.CACT1Temp)) <= 32
+            and 0 <= int(round(self.CACT1 / OBD.gauge.persegment.CACT1)) <= 32
         ):
-            self.CACT1Temp_Image = str(
+            self.CACT1_Image = str(
                 "data/gauges/normal/s2k_"
-                + (str(int(round(self.CACT1Temp / OBD.gauge.persegment.CACT1Temp))))
+                + (str(int(round(self.CACT1 / OBD.gauge.persegment.CACT1))))
                 + ".png"
             )
         if (
@@ -1221,13 +1221,13 @@ class MainApp(App):
     def SpeedWarnSlider(self, instance, value):
         OBD.warning.Speed = int(math.floor(value))
 
-    # def EGT1TempWarnSlider(self, instance, value):
+    # def EGT1WarnSlider(self, instance, value):
     #     OBD.warning.EGT1 = int(math.floor(value))
 
-    # def EGT2TempWarnSlider(self, instance, value):
+    # def EGT2WarnSlider(self, instance, value):
     #     OBD.warning.EGT2 = int(math.floor(value))
 
-    # def CACT1TempWarnSlider(self, instance, value):
+    # def CACT1WarnSlider(self, instance, value):
     #     OBD.warning.CACT1 = int(math.floor(value))
 
     # def TurboBoostWarnSlider(self, instance, value):

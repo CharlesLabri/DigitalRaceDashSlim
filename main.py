@@ -453,9 +453,9 @@ class OBD:
             OBD.cmd_ClearDTC = obd.commands.CLEAR_DTC
             OBD.cmd_Boost = obd.commands.MONITOR_BOOST_PRESSURE_B1  # not in use
             OBD.cmd_Boost = obd.commands.MONITOR_BOOST_PRESSURE_B2  # not in use
-            OBD.cmd_EGT1 = obd.commands[1][78]  # EGT Bank 1
-            OBD.cmd_EGT1 = obd.commands[1][79]  # EGT Bank 1
-            OBD.cmd_CACT1 = obd.commands[1][77]  # CACT Sensor 1
+            # OBD.cmd_EGT1 = obd.commands[1][78]  # EGT Bank 1
+            OBD.cmd_EGT2 = obd.commands[1][79]  # EGT Bank 2
+            # OBD.cmd_CACT1 = obd.commands[1][77]  # CACT Sensor 1
             OBD.cmd_TurboBoost = obd.commands[1][70]  # Turbo Boost
             OBD.Connected = 1
             print("OBD System is Ready, Starting Update Thread")

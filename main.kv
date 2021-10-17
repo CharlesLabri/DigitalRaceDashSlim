@@ -74,7 +74,7 @@ AnchorLayout:
                 
                 Image:
                     source: "data/gauges/warning/WarningRed.png"
-                    opacity: 1 if app.EGT1 > app.EGT1Warn else 0
+                    opacity: 1 if app.TurboBoost > app.TurboBoostWarn else 0
                     pos: 0, 250
                     size_hint: None, None
                     height: 250
@@ -88,7 +88,7 @@ AnchorLayout:
                     height: 150
                     width: 250
                 Image:
-                    source: str(app.EGT1_Image)
+                    source: str(app.TurboBoost_Image)
                     opacity: 1
                     pos: 275, 350
                     size_hint: None, None

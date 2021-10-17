@@ -421,7 +421,7 @@ class OBD:
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:16:3E:ED')  # HART Blue Adapter
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:03:43:DF')  # S2K Blue Adapter
             os.system(
-                "sudo rfcomm bind /dev/rfcomm0 00:1D:A5:0B:A7:46"
+                "sudo rfcomm bind /dev/rfcomm0 00:1D:A5:0B:A7:46"  # should make a try/except loop and release/rebind
             )  # Vanagon ELM327 BT adapter
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:17:E9:60:7C:BC')  # Hondata
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:04:3E:4B:07:66')  # Green LXLink
@@ -453,10 +453,10 @@ class OBD:
             OBD.cmd_ClearDTC = obd.commands.CLEAR_DTC
             OBD.cmd_Boost = obd.commands.MONITOR_BOOST_PRESSURE_B1  # not in use
             OBD.cmd_Boost = obd.commands.MONITOR_BOOST_PRESSURE_B2  # not in use
-            OBD.cmd_EGT1 = obd.commands[78][120]  # EGT Bank 1
-            OBD.cmd_EGT1 = obd.commands[79][121]  # EGT Bank 1
-            OBD.cmd_CACT1 = obd.commands[77][119]  # CACT Sensor 1
-            OBD.cmd_TurboBoost = obd.commands[70][112]  # Turbo Boost
+            # OBD.cmd_EGT1 = obd.commands[78][120]  # EGT Bank 1
+            # OBD.cmd_EGT1 = obd.commands[79][121]  # EGT Bank 1
+            # OBD.cmd_CACT1 = obd.commands[77][119]  # CACT Sensor 1
+            # OBD.cmd_TurboBoost = obd.commands[70][112]  # Turbo Boost
             OBD.Connected = 1
             print("OBD System is Ready, Starting Update Thread")
         except:
